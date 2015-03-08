@@ -34,12 +34,12 @@ func (c *Client) get(url string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Error GETing %s: %v", url, err)
 	}
+	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("Error reading resp.Body: %v", err)
 	}
-	defer resp.Body.Close()
 
 	return body, nil
 }
